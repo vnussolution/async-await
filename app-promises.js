@@ -35,6 +35,18 @@ const getStatus = (id) => {
     }).catch((e) => console.log(e));
 }
 
+const getStatusAlt = async (id) => {
+    const user = await getUser(id);
+    const grades = await getGrades(user.schoolId);
+    let average = 0;
+
+    if (grades.length > 0) {
+        average = grades.map((grades) => grade.grade).reduce((a, b) => a + b) / grades.length;
+    }
+    return `${user.name} has a ${average}% in the class.`;
+
+};
+
 
 getUser(21).then((user) => {
     console.log(user);
